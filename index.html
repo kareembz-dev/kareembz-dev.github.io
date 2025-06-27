@@ -89,7 +89,7 @@
     <section class="hero text-white text-center py-16">
         <div class="container">
             <h1 class="display-4 fw-bold">Hi, I'm Abdu Karim</h1>
-            <p class="lead mt-2">A passionate software engineer and web developer crafting innovative solutions.</p>
+            <p class="lead mt-2">A passionate <span id="role"></span> |crafting innovative solutions.</p>
             <button class="btn btn-light mt-4" data-bs-toggle="modal" data-bs-target="#consultModal">Schedule a Consultation</button>
         </div>
     </section>
@@ -220,6 +220,44 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <!-- IntlTelInput JS -->
     <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+    <!-- Typecript + Backspace -->
+   <script>
+  const roles = ["Software Engineer", "Entrepreneur", "Developer"];
+  const roleElement = document.getElementById("role");
+
+  let roleIndex = 0;
+  let charIndex = 0;
+  let typing = true;
+
+  function typeWriterEffect() {
+    const currentRole = roles[roleIndex];
+
+    if (typing) {
+      // Typing characters
+      roleElement.textContent = currentRole.slice(0, charIndex++);
+      if (charIndex > currentRole.length) {
+        typing = false;
+        setTimeout(typeWriterEffect, 1000); // Wait before deleting
+        return;
+      }
+    } else {
+      // Deleting characters
+      roleElement.textContent = currentRole.slice(0, --charIndex);
+      if (charIndex === 0) {
+        typing = true;
+        roleIndex = (roleIndex + 1) % roles.length;
+      }
+    }
+
+    const speed = typing ? 100 : 50;
+    setTimeout(typeWriterEffect, speed);
+  }
+
+  typeWriterEffect();
+</script>
+
+
+        
     <script>
         // Initialize intl-tel-input
         const phoneInput = document.querySelector("#phone");
@@ -237,6 +275,25 @@
         const minDateTime = now.toISOString().slice(0, 16); // Format: YYYY-MM-DDTHH:mm
         meetingTimeInput.setAttribute("min", minDateTime);
     </script>
+
+        
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'936bf8aab91fbfbb',t:'MTc0NTczMjI4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
+
+
+<!-- Style -->
+<style>
+#role::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+    </style>
+
+
+        
